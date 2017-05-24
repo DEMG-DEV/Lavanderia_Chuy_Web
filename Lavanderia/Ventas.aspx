@@ -101,8 +101,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            <button type="reset" class="btn btn-default">Cancelar</button>
-                            <asp:Button type="submit" class="btn btn-primary" Text="Pagar" runat="server" />
+                            <asp:Button type="reset" class="btn btn-default" Text="Cancelar" runat="server" OnClick="Unnamed1_Click" />
+                            <asp:Button type="submit" class="btn btn-primary" Text="Pagar" runat="server" OnClick="Unnamed2_Click" />
                         </div>
                     </div>
                 </fieldset>
