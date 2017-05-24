@@ -218,6 +218,12 @@ namespace Lavanderia
         {
             if (Convert.ToInt32(txtTaP.Text) > 0)
             {
+                string msg = "Tu pago sera de:\n"
+                        + "Carga Ligera:" + txtCCL.Text + " Total Carga Ligera($):$" + txtTCL.Text + "\n"
+                        + "Carga Pesada:" + txtCCP.Text + " Total Carga Pesada($):$" + txtTCP.Text + "\n"
+                        + "Planchado:" + txtCP.Text + " Total Planchado($):" + txtTP.Text + "\n\n"
+                        + "Total a Pagar:$" + txtTaP.Text;
+                Response.Write("<script type=\"text/javascript\">window.alert('" + msg + "');</script>");
 
                 ConexionMySQL conexion = new ConexionMySQL(data);
                 try
@@ -239,6 +245,11 @@ namespace Lavanderia
             {
 
             }
+        }
+
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
         }
 
         private void calcularTotalPesada()

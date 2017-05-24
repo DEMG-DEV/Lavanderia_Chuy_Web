@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Ventas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Ventas.aspx.cs" Inherits="Lavanderia.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Button ID="btnSalir" CssClass="btn btn-danger btn-xs" runat="server" Text="Salir" />
+    <asp:Button ID="btnSalir" CssClass="btn btn-danger btn-xs" runat="server" Text="Salir" OnClick="btnSalir_Click" />
     <div class="row">
         <div class="col-lg-6">
             <div class="form-horizontal">
@@ -104,6 +104,13 @@
                             <asp:Button type="reset" class="btn btn-default" Text="Cancelar" runat="server" OnClick="Unnamed1_Click" />
                             <asp:Button type="submit" class="btn btn-primary" Text="Pagar" runat="server" OnClick="Unnamed2_Click" />
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <img ID="logo" class="img-thumbnail" src="Content/logo.png" />
+                        </div>
+                        <div class="col-lg-3"></div>
                     </div>
                 </fieldset>
             </div>
