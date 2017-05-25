@@ -17,7 +17,7 @@
                                     <asp:Label ID="lblCL" class="text-primary" runat="server" />
                                 </div>
                                 <div class="col-lg-6">
-                                    <asp:Label ID="lblTL" class="text-primary" runat="server" />
+                                    <asp:Label ID="lblTL" class="text-warning" runat="server" />
                                 </div>
                             </div>
 
@@ -26,7 +26,7 @@
                                     <asp:Label ID="lblCP" class="text-primary" runat="server" />
                                 </div>
                                 <div class="col-lg-6">
-                                    <asp:Label ID="lblTP" class="text-primary" runat="server" />
+                                    <asp:Label ID="lblTP" class="text-warning" runat="server" />
                                 </div>
                             </div>
 
@@ -35,7 +35,7 @@
                                     <asp:Label ID="lblcaP" class="text-primary" runat="server" />
                                 </div>
                                 <div class="col-lg-6">
-                                    <asp:Label ID="lbltoP" class="text-primary" runat="server" />
+                                    <asp:Label ID="lbltoP" class="text-warning" runat="server" />
                                 </div>
                             </div>
 
