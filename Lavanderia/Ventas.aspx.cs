@@ -11,16 +11,21 @@ namespace Lavanderia
 {
     public partial class About : Page
     {
+        // Precios: $65 Carga Ligera, $9 por prenda
+        // Precios: $95 Carga Pesada Pz
+        // Precios: $8 Pz Planchada, $75 por 12
         private int[] precio = { 65, 95, 8 };
 
         // Variables a Cargar en cada PostBack
+        // Arreglo que obtiene la informacion de la base de datos
         private String[] data;
 
+        // Contador de carga ligera, por Pieza, Lavado y Secado
         double contLigera = 0;
+        // Contador de carga pesada, por Pieza, Lavado y Secado
         double contPesada = 0;
+        // Contador de planchado, por Pieza
         int planchado = 0;
-        double pantalones = 0, playeras = 0, manteles = 0, sabanas = 0, edredon = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -35,9 +40,12 @@ namespace Lavanderia
             }
             else if (IsPostBack)
             {
+                // Recuperar valores de venta, motivo: porque se recarga la pagina y se pierde la informacion
                 recuperarValores();
             }
         }
+
+        // Carga de los combobox, se llenan con las prendas.
         private void cargarPrendas()
         {
             ConexionMySQL conexion = new ConexionMySQL(data);
@@ -55,9 +63,9 @@ namespace Lavanderia
 
                 foreach (DataRow row in datos.Rows)
                 {
-                    cmbPrendas1.Items.Add(row["cantidadPrenda"].ToString() + " - " + row["nombrePrenda"].ToString());
-                    cmbPrendas2.Items.Add(row["cantidadPrenda"].ToString() + " - " + row["nombrePrenda"].ToString());
-                    cmbPrendas3.Items.Add(row["cantidadPrenda"].ToString() + " - " + row["nombrePrenda"].ToString());
+                    cmbPrendas1.Items.Add(row["nombrePrenda"].ToString());
+                    cmbPrendas2.Items.Add(row["nombrePrenda"].ToString());
+                    cmbPrendas3.Items.Add(row["nombrePrenda"].ToString());
                 }
 
                 cmbPrendas1.SelectedIndex = 0;
@@ -70,161 +78,153 @@ namespace Lavanderia
             }
         }
 
-
-
+        // Click del boton de SECADO
         protected void btnAñadir2_Click(object sender, EventArgs e)
         {
+            // Prenda Seleccionada
             String val = cmbPrendas2.SelectedItem.ToString();
+            // Cantidad de esa Prenda
+            int cant = Convert.ToInt32(txtCantSecado.Text);
 
-            if (val == "8 - Blusas, Playeras, Camisas, Interior")
+            if (val == "Blusas, Playeras, Camisas, Interior" || val == "Pantalones, Tenis" || val == "Ropa de Cama" || val == "Manteles")
             {
-                playeras += 1;
-                double res = playeras / 8;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
+                // Asignamos en nuevo numero de piezas, se suma por si ya esxistia un previo numero
+                contLigera += cant;
+                // Obtenemos el numero de cargas
+                double res = contLigera / 8;
+                // Redondeamos el numero de cargas
+                int cargasL = Convert.ToInt32(Math.Ceiling(res));
+                // sacamos el numero de piezas individuales
+                int cargasLI = Convert.ToInt32(contLigera - (cargasL * 8));
+                // Obtenemos el total en $$$ de las cargas
+                double total = (cargasL * precio[0]) + (cargasLI * (precio[0] / 8));
+                // Asignamos los valores a los textbox
                 txtCCL.Text = "" + contLigera;
+                txtTCL.Text = "" + total;
             }
-            else if (val == "6 - Pantalones, Tenis")
+            else if (val == "Edredon, Cobertor")
             {
-                pantalones += 1;
-                double res = pantalones / 6;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "4 - Ropa de Cama")
-            {
-                sabanas += 1;
-                double res = sabanas / 4;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "5 - Manteles")
-            {
-                manteles += 1;
-                double res = manteles / 5;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "1 - Edredon, Cobertor")
-            {
-                edredon += 1;
-                contPesada = contPesada + edredon;
+                // Asignamos en nuevo numero de piezas, se suma por si ya esxistia un previo numero
+                contPesada += cant;
+                // Se obtiene el total en $$$ de las cargas
+                double total = contPesada * precio[1];
+                // Asignamos los valores a los textbox
                 txtCCP.Text = "" + contPesada;
+                txtTCP.Text = "" + total;
             }
-            calcularTotalLigera();
-            calcularTotalPesada();
-            lstSecado.Items.Add(val);
+            // Se añade la venta al ListBox
+            lstSecado.Items.Add(cant + " - " + val);
+            // Se calcula el Total de Venta
             calcularTotal();
+            // Se guarda la informacion, motivo recarga de la pagina se pierde la informacion
             guardarValores();
         }
 
+        // Click del Boton de Planchado
         protected void btnAñadir3_Click(object sender, EventArgs e)
         {
+            // Variable usada para guardar el total de Venta en Planchado
             int total = 0; ;
+            // Prenda seleccionada
             String val = cmbPrendas3.SelectedItem.ToString();
+            // Cantidad de esa prenda a Planchar
+            int cant = Convert.ToInt32(txtCantPlanchado.Text);
 
-            if (val == "8 - Blusas, Playeras, Camisas, Interior")
+            if (val == "Blusas, Playeras, Camisas, Interior")
             {
-                planchado += 8;
+                planchado += cant;
             }
-            else if (val == "6 - Pantalones, Tenis")
+            else if (val == "Pantalones, Tenis")
             {
-                planchado += 6;
+                planchado += cant;
             }
-            else if (val == "4 - Ropa de Cama")
+            else if (val == "Ropa de Cama")
             {
-                planchado += 4;
+                planchado += cant;
             }
-            else if (val == "5 - Manteles")
+            else if (val == "Manteles")
             {
-                planchado += 5;
+                planchado += cant;
             }
-            else if (val == "1 - Edredon, Cobertor")
+            else if (val == "Edredon, Cobertor")
             {
-                planchado += 1;
+                planchado += cant;
             }
 
             if (planchado > 0)
             {
+                // Aqui se realizan los calculos para poder hacer el descuento por cada 12 prendas planchadas en $75
+                // despues se saca el valor de las prendas individuales que no estan en una docena y se saca su total
+                // Luego se suman ambos totales para hacer el total general de Planchado
                 double div = planchado / 12;
                 int tot12 = Convert.ToInt32(Math.Floor(div));
                 int tot8 = planchado - (tot12 * 12);
                 total = (tot12 * 75) + (tot8 * 8);
             }
-
+            // Se asignan valores a los textbox
             txtCP.Text = "" + planchado;
             txtTP.Text = "" + total;
-            lstPlanchado.Items.Add(val);
+            // Se añaden a la lista las prendas a planchar
+            lstPlanchado.Items.Add(cant + " - " + val);
+            // Se calcula el total de venta
             calcularTotal();
+            // Se guarda la informacion, motivo recarga de la pagina se pierde la informacion
             guardarValores();
         }
 
         protected void btnAñadir1_Click(object sender, EventArgs e)
         {
+            // Prenda seleccionada
             String val = cmbPrendas1.SelectedItem.ToString();
+            // Cantidad de esa prenda a Lavar
+            int cant = Convert.ToInt32(txtCantLavado.Text);
 
-            if (val == "8 - Blusas, Playeras, Camisas, Interior")
+            if (val == "Blusas, Playeras, Camisas, Interior" || val == "Pantalones, Tenis" || val == "Ropa de Cama" || val == "Manteles")
             {
-                playeras += 1;
-                double res = playeras / 8;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
+                // Asignamos en nuevo numero de piezas, se suma por si ya esxistia un previo numero
+                contLigera += cant;
+                // Obtenemos el numero de cargas
+                double res = contLigera / 8;
+                // Redondeamos el numero de cargas
+                int cargasL = Convert.ToInt32(Math.Ceiling(res));
+                // sacamos el numero de piezas individuales
+                int cargasLI = Convert.ToInt32(contLigera - (cargasL * 8));
+                // Obtenemos el total en $$$ de las cargas
+                double total = (cargasL * precio[0]) + (cargasLI * (precio[0] / 8));
+                // Asignamos los valores a los textbox
                 txtCCL.Text = "" + contLigera;
+                txtTCL.Text = "" + total;
             }
-            else if (val == "6 - Pantalones, Tenis")
+            else if (val == "Edredon, Cobertor")
             {
-                pantalones += 1;
-                double res = pantalones / 6;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "4 - Ropa de Cama")
-            {
-                sabanas += 1;
-                double res = sabanas / 4;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "5 - Manteles")
-            {
-                manteles += 1;
-                double res = manteles / 5;
-                contLigera = contLigera + Convert.ToInt32(Math.Ceiling(res));
-                txtCCL.Text = "" + contLigera;
-            }
-            else if (val == "1 - Edredon, Cobertor")
-            {
-                edredon += 1;
-                contPesada = contPesada + edredon;
+                // Asignamos en nuevo numero de piezas, se suma por si ya esxistia un previo numero
+                contPesada += cant;
+                // Se obtiene el total en $$$ de las cargas
+                double total = contPesada * precio[1];
+                // Asignamos los valores a los textbox
                 txtCCP.Text = "" + contPesada;
+                txtTCP.Text = "" + total;
             }
-            calcularTotalLigera();
-            calcularTotalPesada();
-            lstLavado.Items.Add(val);
+            // Se añade la prenda a la lista
+            lstLavado.Items.Add(cant + " - " + val);
+            // Se calcula el total de venta
             calcularTotal();
+            // Se guarda la informacion, motivo recarga de la pagina se pierde la informacion
             guardarValores();
         }
 
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
+            // Accion del boton Cancelar, solo recarga la pagina de nuevo sin guardar ningun tipo de informacion
             Response.Redirect("Ventas.aspx");
         }
 
-        private void calcularTotalLigera()
-        {
-            int carga = Convert.ToInt32(txtCCL.Text);
-            txtTCL.Text = "" + carga * precio[0];
-        }
-
+        // Accion del boton de Aceptar, guarda la informacion en la BD y muestra el ticket
         protected void Unnamed2_Click(object sender, EventArgs e)
         {
+            // Checa si el Total de venta es mayor a "0"
             if (Convert.ToInt32(txtTaP.Text) > 0)
             {
-                string msg = "Tu pago sera de:\n"
-                        + "Carga Ligera:" + txtCCL.Text + " Total Carga Ligera($):$" + txtTCL.Text + "\n"
-                        + "Carga Pesada:" + txtCCP.Text + " Total Carga Pesada($):$" + txtTCP.Text + "\n"
-                        + "Planchado:" + txtCP.Text + " Total Planchado($):" + txtTP.Text + "\n\n"
-                        + "Total a Pagar:$" + txtTaP.Text;
-                Response.Write("<script type=\"text/javascript\">window.alert('" + msg + "');</script>");
-
                 ConexionMySQL conexion = new ConexionMySQL(data);
                 try
                 {
@@ -234,7 +234,17 @@ namespace Lavanderia
                     {
                     }
                     conexion.conexionClose();
-                    Response.Redirect("Ventas.aspx");
+                    // Guarda las cantidades y totales de: Carga Ligera, Carga Pesada y Planchado, para enviarlas al ticket.
+                    Session["CCL"] = txtCCL.Text;
+                    Session["TCL"] = txtTCL.Text;
+                    Session["CCP"] = txtCCP.Text;
+                    Session["TCP"] = txtTCP.Text;
+                    Session["CP"] = txtCP.Text;
+                    Session["TP"] = txtTP.Text;
+                    Session["TaP"] = txtTaP.Text;
+                    // Redireccion al ticket, hasta este momento el ticket es solo informativo ya que se realizo la venta
+                    // y se guardo en la BD de forma correcta
+                    Response.Redirect("Ticket.aspx");
                 }
                 catch (Exception ex)
                 {
@@ -249,13 +259,8 @@ namespace Lavanderia
 
         protected void btnSalir_Click(object sender, EventArgs e)
         {
+            // Regresa al inicio si se le oprime salir
             Response.Redirect("Default.aspx");
-        }
-
-        private void calcularTotalPesada()
-        {
-            int carga = Convert.ToInt32(txtCCP.Text);
-            txtTCP.Text = "" + carga * precio[1];
         }
 
         private void calcularTotal()
@@ -269,18 +274,16 @@ namespace Lavanderia
 
         private void guardarValores()
         {
+            // Guarda los valores solo durante la pagina actual siga activa, si se recarga o se aprieta cancelar
+            // se pierde esta informacion guardada
             ViewState["contLigera"] = contLigera;
             ViewState["contPesada"] = contPesada;
             ViewState["planchado"] = planchado;
-            //ViewState["pantalones"] = pantalones;
-            //ViewState["playeras"] = playeras;
-            //ViewState["manteles"] = manteles;
-            //ViewState["Sabanas"] = sabanas;
-            //ViewState["edredon"] = edredon;
         }
 
         private void recuperarValores()
         {
+            // Metodo que recupera los valores guardados cada vez que se aprieta un boton de Añadir
             try
             {
                 data = new String[3];
@@ -290,11 +293,6 @@ namespace Lavanderia
                 contLigera = (double)ViewState["contLigera"];
                 contPesada = (double)ViewState["contPesada"];
                 planchado = (int)ViewState["planchado"];
-                //pantalones = (double)ViewState["pantalones"];
-                //playeras = (double)ViewState["playeras"];
-                //manteles = (double)ViewState["manteles"];
-                //sabanas = (double)ViewState["Sabanas"];
-                //edredon = (double)ViewState["edredon"];
             }
             catch (Exception ex)
             {

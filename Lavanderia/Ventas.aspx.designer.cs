@@ -31,6 +31,15 @@ namespace Lavanderia {
         protected global::System.Web.UI.WebControls.DropDownList cmbPrendas1;
         
         /// <summary>
+        /// txtCantLavado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCantLavado;
+        
+        /// <summary>
         /// btnAñadir1 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace Lavanderia {
         protected global::System.Web.UI.WebControls.DropDownList cmbPrendas2;
         
         /// <summary>
+        /// txtCantSecado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCantSecado;
+        
+        /// <summary>
         /// btnAñadir2 control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace Lavanderia {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cmbPrendas3;
+        
+        /// <summary>
+        /// txtCantPlanchado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCantPlanchado;
         
         /// <summary>
         /// btnAñadir3 control.

@@ -11,6 +11,7 @@
                         <div class="col-lg-6">
                             <asp:DropDownList ID="cmbPrendas1" runat="server"></asp:DropDownList>
                         </div>
+                        <asp:TextBox CssClass="col-lg-2" ID="txtCantLavado" runat="server" placeholder="Cantidad..." />
                         <asp:Button CssClass="col-lg-2 btn btn-default btn-sm" ID="btnAñadir1" runat="server" Text="Añadir" OnClick="btnAñadir1_Click" />
                     </div>
                     <div class="form-group">
@@ -27,6 +28,7 @@
                         <div class="col-lg-6">
                             <asp:DropDownList ID="cmbPrendas2" runat="server"></asp:DropDownList>
                         </div>
+                        <asp:TextBox CssClass="col-lg-2" ID="txtCantSecado" runat="server" placeholder="Cantidad..." />
                         <asp:Button CssClass="col-lg-2 btn btn-default btn-sm" ID="btnAñadir2" runat="server" Text="Añadir" OnClick="btnAñadir2_Click" />
                     </div>
                     <div class="form-group">
@@ -43,6 +45,7 @@
                         <div class="col-lg-6">
                             <asp:DropDownList ID="cmbPrendas3" runat="server"></asp:DropDownList>
                         </div>
+                        <asp:TextBox CssClass="col-lg-2" ID="txtCantPlanchado" runat="server" placeholder="Cantidad..." />
                         <asp:Button CssClass="col-lg-2 btn btn-default btn-sm" ID="btnAñadir3" runat="server" Text="Añadir" OnClick="btnAñadir3_Click" />
                     </div>
                     <div class="form-group">
@@ -108,7 +111,7 @@
                     <div class="form-group">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-6">
-                            <img ID="logo" class="img-thumbnail" src="Content/logo.png" />
+                            <img id="logo" class="img-thumbnail" src="Content/logo.png" />
                         </div>
                         <div class="col-lg-3"></div>
                     </div>
