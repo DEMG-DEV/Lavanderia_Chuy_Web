@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -55,6 +58,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -128,8 +134,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Lavanderia.mdf" />
+    <Content Include="App_Data\Lavanderia_log.ldf">
+      <DependentUpon>Lavanderia.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\logo.png" />
+    <Content Include="Prendas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Prendas.Context.cs</LastGenOutput>
+      <DependentUpon>Prendas.edmx</DependentUpon>
+    </Content>
+    <Content Include="Prendas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Prendas.edmx</DependentUpon>
+      <LastGenOutput>Prendas.cs</LastGenOutput>
+    </Content>
     <Content Include="Ticket.aspx" />
+    <Content Include="Usuarios.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Usuarios.edmx</DependentUpon>
+      <LastGenOutput>Usuarios.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Usuarios.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Usuarios.edmx</DependentUpon>
+      <LastGenOutput>Usuarios.cs</LastGenOutput>
+    </Content>
     <Content Include="Ventas.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -143,6 +173,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Prendas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Prendas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Prendas.edmx.diagram">
+      <DependentUpon>Prendas.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Robinweatherall-Cleaning-Clothes.ico" />
@@ -183,12 +220,48 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="ConexionMySQL.cs" />
+    <Compile Include="prenda.cs">
+      <DependentUpon>Prendas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Prendas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Prendas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Prendas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Prendas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Prendas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Prendas.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Ticket.aspx.cs">
       <DependentUpon>Ticket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Ticket.aspx.designer.cs">
       <DependentUpon>Ticket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="usuario.cs">
+      <DependentUpon>Usuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Usuarios.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Usuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Usuarios.edmx</DependentUpon>
     </Compile>
     <Compile Include="Ventas.aspx.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
@@ -232,11 +305,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <EntityDeploy Include="Usuarios.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Usuarios.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Usuarios.edmx.diagram">
+      <DependentUpon>Usuarios.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
