@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LavanderiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LavanderiaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="IdUsuario" />
@@ -14,14 +14,14 @@
           <Property Name="passUsuario" Type="text" />
           <Property Name="rolUsuario" Type="text" />
         </EntityType>
-        <EntityContainer Name="LavanderiaModelStoreContainer">
+        <EntityContainer Name="LavanderiaModel1StoreContainer">
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="LavanderiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LavanderiaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="usuario">
           <Key>
             <PropertyRef Name="IdUsuario" />
@@ -31,7 +31,7 @@
           <Property Name="passUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="rolUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="LavanderiaEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="usuarios" EntityType="Self.usuario" />
         </EntityContainer>
       </Schema>
@@ -39,9 +39,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LavanderiaModelStoreContainer" CdmEntityContainer="LavanderiaEntities1">
+        <EntityContainerMapping StorageEntityContainer="LavanderiaModel1StoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="LavanderiaModel.usuario">
+            <EntityTypeMapping TypeName="LavanderiaModel1.usuario">
               <MappingFragment StoreEntitySet="usuarios">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />

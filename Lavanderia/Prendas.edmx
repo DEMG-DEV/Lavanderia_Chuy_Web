@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LavanderiaModelPrendas.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LavanderiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="prendas">
           <Key>
             <PropertyRef Name="IdPrenda" />
@@ -13,14 +13,14 @@
           <Property Name="nombrePrenda" Type="text" />
           <Property Name="cantidadPrenda" Type="nchar" MaxLength="10" />
         </EntityType>
-        <EntityContainer Name="LavanderiaModelPrendasStoreContainer">
+        <EntityContainer Name="LavanderiaModelStoreContainer">
           <EntitySet Name="prendas" EntityType="Self.prendas" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="LavanderiaModelPrendas" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LavanderiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="prenda">
           <Key>
             <PropertyRef Name="IdPrenda" />
@@ -29,7 +29,7 @@
           <Property Name="nombrePrenda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="cantidadPrenda" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="LavanderiaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Lavanderia_Prendas" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="prendas" EntityType="Self.prenda" />
         </EntityContainer>
       </Schema>
@@ -37,9 +37,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LavanderiaModelPrendasStoreContainer" CdmEntityContainer="LavanderiaEntities">
+        <EntityContainerMapping StorageEntityContainer="LavanderiaModelStoreContainer" CdmEntityContainer="Lavanderia_Prendas">
           <EntitySetMapping Name="prendas">
-            <EntityTypeMapping TypeName="LavanderiaModelPrendas.prenda">
+            <EntityTypeMapping TypeName="LavanderiaModel.prenda">
               <MappingFragment StoreEntitySet="prendas">
                 <ScalarProperty Name="IdPrenda" ColumnName="IdPrenda" />
                 <ScalarProperty Name="nombrePrenda" ColumnName="nombrePrenda" />

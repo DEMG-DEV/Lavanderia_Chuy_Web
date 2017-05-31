@@ -141,8 +141,8 @@
     <Content Include="Content\logo.png" />
     <Content Include="Prendas.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Prendas.Context.cs</LastGenOutput>
       <DependentUpon>Prendas.edmx</DependentUpon>
+      <LastGenOutput>Prendas.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Prendas.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -212,6 +212,16 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
+    <Content Include="Ventas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Ventas.edmx</DependentUpon>
+      <LastGenOutput>Ventas.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Ventas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Ventas.edmx</DependentUpon>
+      <LastGenOutput>Ventas.cs</LastGenOutput>
+    </Content>
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -263,6 +273,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Usuarios.edmx</DependentUpon>
     </Compile>
+    <Compile Include="venta.cs">
+      <DependentUpon>Ventas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.aspx.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -296,6 +309,21 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="Ventas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ventas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ventas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ventas.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -316,6 +344,13 @@
     </EntityDeploy>
     <Content Include="Usuarios.edmx.diagram">
       <DependentUpon>Usuarios.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Ventas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Ventas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Ventas.edmx.diagram">
+      <DependentUpon>Ventas.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

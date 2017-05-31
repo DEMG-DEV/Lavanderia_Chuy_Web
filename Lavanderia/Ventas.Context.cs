@@ -25,6 +25,6 @@ namespace Lavanderia
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<usuario> usuarios { get; set; }
+        public DbSet<venta> ventas { get; set; }
     }
 }

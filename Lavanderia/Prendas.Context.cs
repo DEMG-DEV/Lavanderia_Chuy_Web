@@ -13,10 +13,10 @@ namespace Lavanderia
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LavanderiaEntities : DbContext
+    public partial class Lavanderia_Prendas : DbContext
     {
-        public LavanderiaEntities()
-            : base("name=LavanderiaEntities")
+        public Lavanderia_Prendas()
+            : base("name=Lavanderia_Prendas")
         {
         }
     
