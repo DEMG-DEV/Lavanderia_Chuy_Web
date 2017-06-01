@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,11 +27,45 @@ namespace Lavanderia
         {
             if (!IsPostBack)
             {
+                cargarPrendas();
             }
             else if (IsPostBack)
             {
                 // Recuperar valores de venta, motivo: porque se recarga la pagina y se pierde la informacion
                 recuperarValores();
+            }
+        }
+
+        // Carga de los combobox, se llenan con las prendas.
+        private void cargarPrendas()
+        {
+            ConexionSQLServer conexion = new ConexionSQLServer();
+            try
+            {
+                string Query = "SELECT * FROM dbo.prendas;";
+                SqlDataAdapter adapter = conexion.conexionGetData(Query);
+                DataTable datos = new DataTable();
+                adapter.Fill(datos);
+                conexion.conexionClose();
+
+                cmbPrendas1.Items.Clear();
+                cmbPrendas2.Items.Clear();
+                cmbPrendas3.Items.Clear();
+
+                foreach (DataRow row in datos.Rows)
+                {
+                    cmbPrendas1.Items.Add(row["nombrePrenda"].ToString());
+                    cmbPrendas2.Items.Add(row["nombrePrenda"].ToString());
+                    cmbPrendas3.Items.Add(row["nombrePrenda"].ToString());
+                }
+
+                cmbPrendas1.SelectedIndex = 0;
+                cmbPrendas2.SelectedIndex = 0;
+                cmbPrendas3.SelectedIndex = 0;
+
+            }
+            catch (Exception ex)
+            {
             }
         }
 
@@ -181,7 +216,31 @@ namespace Lavanderia
             // Checa si el Total de venta es mayor a "0"
             if (Convert.ToInt32(txtTaP.Text) > 0)
             {
-                // Aqui se guarda la venta en SQL Server               
+                ConexionSQLServer conexion = new ConexionSQLServer();
+                try
+                {
+                    string Query = "INSERT INTO dbo.ventas(cantidadCargaLigera, totalCargaLigera,cantidadCargaPesada, totalCargaPesada,cantidadPlanchado, totalPlanchado,totalVenta) VALUES(" + Convert.ToInt32(txtCCL.Text) + "," + Convert.ToDouble(txtTCL.Text) + "," + Convert.ToInt32(txtCCP.Text) + "," + Convert.ToDouble(txtTCP.Text) + "," + Convert.ToInt32(txtCP.Text) + "," + Convert.ToDouble(txtTP.Text) + "," + Convert.ToDouble(txtTaP.Text) + ");";
+                    SqlDataReader adapter = conexion.conexionSendData(Query);
+                    while (adapter.Read())
+                    {
+                    }
+                    conexion.conexionClose();
+                    // Guarda las cantidades y totales de: Carga Ligera, Carga Pesada y Planchado, para enviarlas al ticket.
+                    Session["CCL"] = txtCCL.Text;
+                    Session["TCL"] = txtTCL.Text;
+                    Session["CCP"] = txtCCP.Text;
+                    Session["TCP"] = txtTCP.Text;
+                    Session["CP"] = txtCP.Text;
+                    Session["TP"] = txtTP.Text;
+                    Session["TaP"] = txtTaP.Text;
+                    // Redireccion al ticket, hasta este momento el ticket es solo informativo ya que se realizo la venta
+                    // y se guardo en la BD de forma correcta
+                    Response.Redirect("Ticket.aspx");
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             else
             {

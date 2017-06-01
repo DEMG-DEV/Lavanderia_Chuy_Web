@@ -1,11 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Lavanderia
 {
@@ -37,16 +39,22 @@ namespace Lavanderia
 
         private bool checarConexion()
         {
-            // Aqui se checa la conexion con sql server
-            return false;
-
-            //ConexionMySQL conexion = new ConexionMySQL(data);
-            //DataTable datosRow = new DataTable();
+            string user = txtUser.Text;
+            string pass = txtPass.Text;
+            //SqlConnection con = null;
+            //// Aqui se checa la conexion con sql server
             //try
             //{
-            //    string Query = "SELECT COUNT(*) FROM lavanderia.servicios;";
-            //    MySqlDataAdapter adapter = conexion.conexionGetData(Query);
-            //    adapter.Fill(datosRow);
+            //    DataTable datosRow = new DataTable();
+            //    SqlDataAdapter reader = null;
+            //    string strCon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Lavanderia.mdf;Integrated Security=True;";
+            //    con = new SqlConnection(strCon);
+            //    con.Open();
+
+            //    SqlCommand com = con.CreateCommand();
+            //    com.CommandText = "SELECT COUNT(*) FROM dbo.usuarios WHERE nombreUsuario =\'" + user + "\';";
+            //    reader = new SqlDataAdapter(com);
+            //    reader.Fill(datosRow);
             //    if (datosRow.Rows.Count >= 0)
             //    {
             //        return true;
@@ -63,8 +71,33 @@ namespace Lavanderia
             //}
             //finally
             //{
-            //    conexion.conexionClose();
+            //    con.Close();
             //}
+            ConexionSQLServer conexion = new ConexionSQLServer();
+            DataTable datosRow = new DataTable();
+            try
+            {
+                string Query = "SELECT COUNT(*) FROM dbo.usuarios WHERE nombreUsuario =\'" + user + "\';";
+                SqlDataAdapter adapter = conexion.conexionGetData(Query);
+                adapter.Fill(datosRow);
+                if (datosRow.Rows.Count >= 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                conexion.conexionClose();
+            }
 
         }
 

@@ -9,7 +9,7 @@
                     <legend>Lavado</legend>
                     <div class="form-group">
                         <div class="col-lg-6">
-                            <asp:DropDownList ID="cmbPrendas1" runat="server" DataSourceID="EntityDataSource1" DataTextField="nombrePrenda" DataValueField="nombrePrenda"></asp:DropDownList>
+                            <asp:DropDownList ID="cmbPrendas1" runat="server"></asp:DropDownList>
                             <asp:EntityDataSource ID="EntityDataSource1" runat="server" ConnectionString="name=LavanderiaEntities" DefaultContainerName="LavanderiaEntities" EnableFlattening="False" EntitySetName="prendas" EntityTypeFilter="prenda" Select="it.[nombrePrenda]">
                             </asp:EntityDataSource>
                         </div>
@@ -28,7 +28,7 @@
                     <legend>Secado</legend>
                     <div class="form-group">
                         <div class="col-lg-6">
-                            <asp:DropDownList ID="cmbPrendas2" runat="server" DataSourceID="EntityDataSource1" DataTextField="nombrePrenda" DataValueField="nombrePrenda"></asp:DropDownList>
+                            <asp:DropDownList ID="cmbPrendas2" runat="server"></asp:DropDownList>
                         </div>
                         <asp:TextBox CssClass="col-lg-2" ID="txtCantSecado" runat="server" placeholder="Cantidad..." />
                         <asp:Button CssClass="col-lg-2 btn btn-default btn-sm" ID="btnAñadir2" runat="server" Text="Añadir" OnClick="btnAñadir2_Click" />
@@ -45,7 +45,7 @@
                     <legend>Planchado</legend>
                     <div class="form-group">
                         <div class="col-lg-6">
-                            <asp:DropDownList ID="cmbPrendas3" runat="server" DataSourceID="EntityDataSource1" DataTextField="nombrePrenda" DataValueField="nombrePrenda"></asp:DropDownList>
+                            <asp:DropDownList ID="cmbPrendas3" runat="server"></asp:DropDownList>
                         </div>
                         <asp:TextBox CssClass="col-lg-2" ID="txtCantPlanchado" runat="server" placeholder="Cantidad..." />
                         <asp:Button CssClass="col-lg-2 btn btn-default btn-sm" ID="btnAñadir3" runat="server" Text="Añadir" OnClick="btnAñadir3_Click" />

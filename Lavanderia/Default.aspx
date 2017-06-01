@@ -8,12 +8,12 @@
                 <fieldset>
                     <legend>Ingresar</legend>
 
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label for="lblIP" class="col-lg-2 control-label">IP Servidor:</label>
                         <div class="col-lg-10">
                             <asp:TextBox ID="txtIp" class="form-control" runat="server"></asp:TextBox>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="form-group">
                         <label for="lblUsuario" class="col-lg-2 control-label">Usuario:</label>
                         <div class="col-lg-10">
