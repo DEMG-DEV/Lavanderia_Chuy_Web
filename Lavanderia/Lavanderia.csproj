@@ -139,6 +139,7 @@
       <DependentUpon>Lavanderia.mdf</DependentUpon>
     </Content>
     <Content Include="Content\logo.png" />
+    <Content Include="Reportes.aspx" />
     <Content Include="Ticket.aspx" />
     <Content Include="Ventas.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -194,6 +195,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="ConexionMySQL.cs" />
     <Compile Include="ConexionSQLServer.cs" />
+    <Compile Include="Reportes.aspx.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes.aspx.designer.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ticket.aspx.cs">
       <DependentUpon>Ticket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -287,5 +287,9 @@ namespace Lavanderia
             }
         }
 
+        protected void btnReportes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Reportes.aspx");
+        }
     }
 }

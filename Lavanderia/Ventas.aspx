@@ -2,6 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Button ID="btnSalir" CssClass="btn btn-danger btn-xs" runat="server" Text="Salir" OnClick="btnSalir_Click" />
+    <asp:Button ID="btnReportes" CssClass="btn btn-primary btn-sm" runat="server" Text="Reportes" OnClick="btnReportes_Click" />
     <div class="row">
         <div class="col-lg-6">
             <div class="form-horizontal">
